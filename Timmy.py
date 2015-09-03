@@ -126,53 +126,52 @@ def stopall():
   b.ChangeDutyCycle(0)
   print('stop')
 
-def obs():
-   try:
-      while True:
-         print 'Getting sonar'
-         leftDist = Sonar(triggerL, echoL)
-         frontDist = Sonar(front, front)
-         rightDist = Sonar(triggerR,echoR)
-         tooclose = 10
-         print 'front:', str(frontDist) + ' right:', str(rightDist) + ' left:', str(leftDist)
-         fspeed = speed * (frontDist/maxdist)
-         lspeed = speed * (leftDist/maxdist)
-         rspeed = speed * (rightDist/maxdist)
-         if fspeed < 10:
-            fspeed = 10
-         if lspeed < 10:
-            lspeed = 10
-         if rspeed < 10:
-            rspeed = 10
-         print 'fspeed:', str(fspeed) + '  rspeed:', str(rspeed) + ' lspeed:', str(lspeed)
-         if frontDist >= tooclose and rightDist >= tooclose and leftDist >= tooclose:
-            forward(fspeed)
-         elif frontDist >= tooclose and rightDist <= tooclose and leftDist >= tooclose:
-            forward(fspeed)
-            time.sleep(0.1)
-            turnleft(lspeed)
-         elif frontDist >= tooclose and rightDist >= tooclose and leftDist <= tooclose:
-            forward(fspeed)
-            time.sleep(0.1)
-            turnright(rspeed)
-         elif frontDist <= tooclose and rightDist >= tooclose and leftDist >= tooclose:
-            reverse(20)
-            time.sleep(0.1)
-         elif frontDist <= tooclose and rightDist <= tooclose and leftDist <= tooclose:
-            reverse(20)
-            time.sleep(0.1)
-            turnaroundleft()
-         elif frontDist <= tooclose and rightDist <= tooclose and leftDist >= tooclose:
-            reverse(20)
-            time.sleep(0.1)
-            turnleft(lspeed)
-         elif frontDist <= tooclose and rightDist >= tooclose and leftDist <= tooclose:
-            reverse(20)
-            time.sleep(0.1)
-            turnright(rspeed)
+try:
+   while True:
+      print 'Getting sonar'
+      leftDist = Sonar(triggerL, echoL)
+      frontDist = Sonar(front, front)
+      rightDist = Sonar(triggerR,echoR)
+      tooclose = 10
+      print 'front:', str(frontDist) + ' right:', str(rightDist) + ' left:', str(leftDist)
+      fspeed = speed * (frontDist/maxdist)
+      lspeed = speed * (leftDist/maxdist)
+      rspeed = speed * (rightDist/maxdist)
+      if fspeed < 10:
+         fspeed = 10
+      if lspeed < 10:
+         lspeed = 10
+      if rspeed < 10:
+         rspeed = 10
+      print 'fspeed:', str(fspeed) + '  rspeed:', str(rspeed) + ' lspeed:', str(lspeed)
+      if frontDist >= tooclose and rightDist >= tooclose and leftDist >= tooclose:
+         forward(fspeed)
+      elif frontDist >= tooclose and rightDist <= tooclose and leftDist >= tooclose:
+         forward(fspeed)
+         time.sleep(0.1)
+         turnleft(lspeed)
+      elif frontDist >= tooclose and rightDist >= tooclose and leftDist <= tooclose:
+         forward(fspeed)
+         time.sleep(0.1)
+         turnright(rspeed)
+      elif frontDist <= tooclose and rightDist >= tooclose and leftDist >= tooclose:
+         reverse(20)
+         time.sleep(0.1)
+      elif frontDist <= tooclose and rightDist <= tooclose and leftDist <= tooclose:
+         reverse(20)
+         time.sleep(0.1)
+         turnaroundleft()
+      elif frontDist <= tooclose and rightDist <= tooclose and leftDist >= tooclose:
+         reverse(20)
+         time.sleep(0.1)
+         turnleft(lspeed)
+      elif frontDist <= tooclose and rightDist >= tooclose and leftDist <= tooclose:
+         reverse(20)
+         time.sleep(0.1)
+         turnright(rspeed)
         
-   except KeyboardInterrupt:
-      GPIO.cleanup()
+except KeyboardInterrupt:
+   GPIO.cleanup()
       
 def obss():    
    try:
