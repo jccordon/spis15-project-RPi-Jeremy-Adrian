@@ -1,4 +1,4 @@
-#Afrian J. & Jeremy C.
+#Adrian J. & Jeremy C.
 #Timmy (follower) code
 #Combine sonar detection with movement
 
@@ -80,7 +80,7 @@ def reverse(speed):
   q.ChangeDutyCycle(speed)
   a.ChangeDutyCycle(0)
   b.ChangeDutyCycle(speed)
-  print('backwards')
+  print('reverse')
 
 def turnleft(speed):
 #p & q= right wheel
@@ -128,7 +128,6 @@ def stopall():
 
 try:
    while True:
-      print 'Getting sonar'
       leftDist = Sonar(triggerL, echoL)
       frontDist = Sonar(front, front)
       rightDist = Sonar(triggerR,echoR)
@@ -173,38 +172,3 @@ try:
          turnright(rspeed)
 except KeyboardInterrupt:
    GPIO.cleanup()
-
-#def obss():    
-#   try:
-#      while True:
-#         leftDist = Sonar(triggerL, echoL)
-#         time.sleep(0.001)
-#         frontDist = Sonar(front, front)
-#         time.sleep(0.001)
-#         rightDist = Sonar(triggerR,echoR)
-#         time.sleep(0.001)
-#         tooclose = 10
-#         print 'front:', str(frontDist) + ' right:', str(rightDist) + ' left:', str(leftDist)
-#         fspeed = speed * (frontDist/maxdist)
-#         lspeed = speed * (leftDist/maxdist)
-#         rspeed = speed * (rightDist/maxdist)
-##         if fspeed < 10:
-##            fspeed = 10
-##         if lspeed < 10:
-##            lspeed = 10
-##         if rspeed < 10:
-##            rspeed = 10
-##         print 'fspeed: ', str(fspeed)         
-#         if frontDist > tooclose:
-#            forward(fspeed)
-#         elif frontDist <= tooclose and rightDist > tooclose and leftDist <= tooclose:
-#            stopall()
-#            reverse()
-#            time.sleep(.3)
-#            turnright(30)
-#         elif frontDist <= tooclose and leftDist > tooclose and rightDist <= tooclose:
-#            stopall()
-#            reverse()
-#            time.sleep(.3)
-#	    turnleft(30)
-#
