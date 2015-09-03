@@ -207,5 +207,3 @@ def obss():
             time.sleep(.3)
             turnleft(30)
          #elif
-
-                  
