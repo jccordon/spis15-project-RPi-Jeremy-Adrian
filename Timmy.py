@@ -176,7 +176,7 @@ def obss():
 
 def backup():
    try:
-   while True:
+    while True:
       print 'Getting sonar'
       leftDist = Sonar(triggerL, echoL)
       frontDist = Sonar(front, front)
