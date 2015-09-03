@@ -26,20 +26,21 @@ GPIO.setup(26, GPIO.OUT)
 b=GPIO.PWM(26,20)
 b.start(0)
 
-#speed
+#speed of car
 speed = 100
 
-#maxdist
+#maximum distance
 maxdist = 300
 
-#Sonar Pins
+#sonar pins
 front = 8
 echoR = 07
 triggerR = 22
 echoL = 11
 triggerL = 18
 
-def Sonar(trigger, echo):
+#takes five sonar readings, sorts from min-max, and returns its median value
+def Sonar(trigger, echo): 
    dist_list=[]
    for i in range(5):
       GPIO.setup(trigger, GPIO.OUT)
@@ -63,11 +64,12 @@ def Sonar(trigger, echo):
       distance = distance / 2
       dist_list = dist_list +[distance]
       time.sleep(0.01)
-   
    sorted_list=sorted(dist_list)
-##   print sorted_list
    return sorted_list[2]
 
+#functions execute cars movement
+#p&q= right wheel
+#a&b= left wheel
 def forward(speed):
   p.ChangeDutyCycle(speed)
   q.ChangeDutyCycle(0)
@@ -83,8 +85,6 @@ def reverse(speed):
   print('reverse')
 
 def turnleft(speed):
-#p & q= right wheel
-#a & b= left wheel
   p.ChangeDutyCycle(speed)
   q.ChangeDutyCycle(0)
   a.ChangeDutyCycle(0)
@@ -98,7 +98,7 @@ def turnright(speed):
   b.ChangeDutyCycle(0)
   print('right')
 
-def turnaroundright ():
+def turnaroundright():
   p.ChangeDutyCycle(0)
   q.ChangeDutyCycle(20)
   time.sleep(.7)
@@ -108,7 +108,7 @@ def turnaroundright ():
   stopall()
   print('turnright')
 
-def turnaroundleft ():
+def turnaroundleft():
   p.ChangeDutyCycle(20)
   time.sleep(.6)
   q.ChangeDutyCycle(0)
@@ -118,7 +118,6 @@ def turnaroundleft ():
   stopall()
   print('turnleft')
    
-
 def stopall():
   p.ChangeDutyCycle(0)
   q.ChangeDutyCycle(0)
@@ -132,11 +131,12 @@ try:
       frontDist = Sonar(front, front)
       rightDist = Sonar(triggerR,echoR)
       tooclose = 10
-      superclose = 1000
+      superclose = 1000 #used when sonar touches wall and returns extremely high distances
       print 'front:', str(frontDist) + ' right:', str(rightDist) + ' left:', str(leftDist)
       fspeed = speed * (frontDist/maxdist)
       lspeed = speed * (leftDist/maxdist)
       rspeed = speed * (rightDist/maxdist)
+      #prevents the car from stopping its code when sonar reading is 0
       if fspeed < 10:
          fspeed = 10
       if lspeed < 10:
@@ -144,6 +144,7 @@ try:
       if rspeed < 10:
          rspeed = 10
       print 'fspeed:', str(fspeed) + '  rspeed:', str(rspeed) + ' lspeed:', str(lspeed)
+      #algorithm for avoiding obstacles
       if frontDist >= tooclose and rightDist >= tooclose and leftDist >= tooclose:
          forward(fspeed)
       elif frontDist >= tooclose and rightDist <= tooclose and leftDist >= tooclose:
