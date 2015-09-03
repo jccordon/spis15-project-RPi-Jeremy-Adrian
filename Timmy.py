@@ -1,5 +1,5 @@
 #Adrian J. & Jeremy C.
-#Timmy (follower) code
+#Timmy (obstacle avoidance) code
 #Combine sonar detection with movement
 
 import RPi.GPIO as GPIO, sys, threading, time
