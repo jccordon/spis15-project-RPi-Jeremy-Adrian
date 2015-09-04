@@ -86,30 +86,31 @@ def stopall():
   b.ChangeDutyCycle(0)
   print('stop')
 
-def friend():
-    try:
-        while True:
-            lDist = Sonar(left,left)
-            rDist = Sonar(triggerR,echoR)
-            tooclose = 10
-            close = range(10,30)
-            far = 30
-            print 'lDist:', lDist + ' rDist:', rDist
-            lspeed = speed * (lDist,maxdist)
-            rspeed = speed * (rDist,maxdist)
-            if lDist >= far and rDist >= far:
-                stopall()
-            if lDist <= tooclose and rDist <= tooclose:
-                stopall()
-            elif lDist in close and rDist in close:
-                forward(10)
-            elif lDist in close and rDist >= far:
-                forward(10)
-                time.sleep(0.1)
-                turnleft(lspeed)
-            elif lDist >= far and rDist in close:
-                forward(10)
-                time.sleep(0.1)
-                turnright(rspeed)
+try:
+    while True:
+        lDist = Sonar(left,left)
+        rDist = Sonar(triggerR,echoR)
+        tooclose = 10
+        close = range(10,30)
+        far = 30
+        print 'lDist:', lDist + ' rDist:', rDist
+        lspeed = speed * (lDist,maxdist)
+        rspeed = speed * (rDist,maxdist)
+        if lDist >= far and rDist >= far:
+            stopall()
+        if lDist <= tooclose and rDist <= tooclose:
+            stopall()
+        elif lDist in close and rDist in close:
+            forward(10)
+        elif lDist in close and rDist >= far:
+            forward(10)
+            time.sleep(0.1)
+            turnleft(lspeed)
+        elif lDist >= far and rDist in close:
+            forward(10)
+            time.sleep(0.1)
+            turnright(rspeed)
+except KeyboardInterrupt:
+    GPIO.cleanup()
             
                 
